@@ -4,10 +4,10 @@
       <env name="DB_PASSWORD" value="FS300924EPICODE" />
       <env name="DB_URL" value="jdbc:postgresql://localhost:5432/progetto AUTOMOBILI 2025" />
       <env name="DB_USERNAME" value="capoNapo" />
-      <env name="JWT_SECRET" value="belB@mb1N=" />
+      <env name="JWT_EXP" value="3600000" />
+      <env name="JWT_SECRET" value="G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
       <env name="SS_PASSWORD" value="maN1gga" />
       <env name="SS_USERNAME" value="user" />
-      <env name="JWT_EXP" value="3600000" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="it.finalproject.auto_collection.AutoCollectionApplication" />
     <module name="auto-collection" />
