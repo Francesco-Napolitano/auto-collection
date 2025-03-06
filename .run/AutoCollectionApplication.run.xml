@@ -1,6 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AutoCollectionApplication" type="Application" factoryName="Application">
     <envs>
+      <env name="ADMIN_EMAIL" value="jer3m1@proton.me" />
+      <env name="ADMIN_PASSWORD" value="jer3mYCl@Rks0n2016 " />
+      <env name="ADMIN_USERNAME" value="Jeremy Clarkson" />
       <env name="DB_PASSWORD" value="FS300924EPICODE" />
       <env name="DB_URL" value="jdbc:postgresql://localhost:5432/progetto AUTOMOBILI 2025" />
       <env name="DB_USERNAME" value="capoNapo" />
@@ -8,6 +11,9 @@
       <env name="JWT_SECRET" value="G7dLkPzS3LmHqT9UwXyIbV28nHjPeR5ZGTRU77891Yht" />
       <env name="SS_PASSWORD" value="maN1gga" />
       <env name="SS_USERNAME" value="user" />
+      <env name="USER_PASSWORD" value="s0n0Un@Passw0rd" />
+      <env name="USER_USERNAME" value="userQualunque" />
+      <env name="USER_EMAIL" value="unaltraltr53ma1l@yahoo.com" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="it.finalproject.auto_collection.AutoCollectionApplication" />
     <module name="auto-collection" />
