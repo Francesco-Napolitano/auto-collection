@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.imageio.metadata.IIOInvalidTreeException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -26,54 +27,47 @@ public class AutoService {
         return autoRepository.findById(id);
     }
 
-    //get per riavere un'auto specifica per marca
-    public List<Auto> getAutoByBrand(Long brandId) {
-        return autoRepository.findByBrandId(brandId);
+
+    public List<Auto> getFilteredAutos(Long brandID, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
+        if (brandID!= null && nazioneId!= null) {
+            return autoRepository.findByBrandIdAndNazioneId(brandID, nazioneId);
+        } else if (brandID != null) {
+            return autoRepository.findByBrandId(brandID);
+        } else if(nazioneId != null) {
+            return autoRepository.findByNazioneId(nazioneId);
+        } else if (alimentazione != null) {
+            return autoRepository.findByAlimentazione(alimentazione);
+        } else if (modello != null) {
+            return autoRepository.findByModello(modello);
+        } else if (anno != null) {
+            return autoRepository.findByAnno(anno);
+        } else if (prezzo != null) {
+            return autoRepository.findByPrezzo(prezzo);
+        } else if (carrozzeria != null) {
+            return autoRepository.findByCarrozzeria(carrozzeria);
+        } else if (unitaVendute != null) {
+            return autoRepository.findByUnitaVendute(unitaVendute);
+        } else {
+            return autoRepository.findAll();
+        }
     }
 
-    //get per riavere un'auto per nazione specifica
-    public List<Auto> getAutoByNazione(Long nazioneId){
-        return autoRepository.findByNazioneId(nazioneId);
-    }
-
-    //get per riavere un'auto per marca e nazione specifica
-    public List<Auto> getAutoByBrandAndNazione(Long brandId, Long nazioneId){
-        return autoRepository.findByBrandIdAndNazioneId(brandId, nazioneId);
-    }
-
-    //get per riavere un'auto per alimentazione specifica
-    public List<Auto> getAutoByAlimentazione (String alimentazione){
-        return autoRepository.findByAlimentazione(alimentazione);
-    }
-
-    //get per riavere un'auto per modello specifico
-    public List<Auto> getAutoByModello(String modello){
-        return autoRepository.findByModello(modello);
-    }
-
-    //get per riavere un'auto per anno specifico
-    public List<Auto> getAutoByAnno(Integer anno){
-        return autoRepository.findByAnno(anno);
-    }
-
-    //get per riavere un'auto per prezzo specifico
-    public List<Auto> getAutoByPrezzo(BigDecimal prezzo){
-        return autoRepository.findByPrezzo(prezzo);
-    }
-
-    //get per riavere un'auto per carrozzeria specifica
-    public List<Auto> getAutoByCarrozzeria(String carrozzeria){
-        return autoRepository.findByCarrozzeria(carrozzeria);
-    }
-
-    //get per riavere un'auto per unita vendute specifica
-    public List<Auto> getAutoByUnitaVendute(String unitaVendute){
-        return autoRepository.findByUnitaVendute(unitaVendute);
-    }
-
-    //Salva per poter salvare un'auto nuova o modificarla
+    //Salva per poter salvare un'auto nuova
     public Auto saveAuto(Auto auto){
         return autoRepository.save(auto);
+    }
+
+    //modifica un auto esistente con update
+    public Optional<Auto> updateAuto(Long id, Auto autoUpdated){
+        return autoRepository.findById(id).map(auto -> {
+            auto.setModello(autoUpdated.getModello());
+            auto.setAnno(autoUpdated.getAnno());
+            auto.setPrezzo(autoUpdated.getPrezzo());
+            auto.setCarrozzeria(autoUpdated.getCarrozzeria());
+            auto.setUnitaVendute(autoUpdated.getUnitaVendute());
+            auto.setAlimentazione(autoUpdated.getAlimentazione());
+            return autoRepository.save(auto);
+        });
     }
 
     //Delete per poter eliminare un'auto
