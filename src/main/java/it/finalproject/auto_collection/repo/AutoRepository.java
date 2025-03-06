@@ -17,4 +17,6 @@ public interface AutoRepository extends JpaRepository<Auto, Long> {
     List<Auto> findByModello(String modello);
     List<Auto> findByAnno(Integer anno);
     List<Auto> findByPrezzo(BigDecimal prezzo);
+    List<Auto> findByCarrozzeria (String carrozzeria);
+    List<Auto> findByUnitaVendute (String unitaVendute);
 }

@@ -25,6 +25,7 @@ public class Auto {
     private Integer coppia;
     private Integer velocitaMax;
     private BigDecimal prezzo;
+    @Column(columnDefinition = "TEXT")
     private String descrizione;
     private String alimentazione;
     private Double length;
@@ -35,6 +36,8 @@ public class Auto {
     private String strutturaMotore;
     private String trazione;
     private String posizioneMotore;
+    private String carrozzeria;
+    private String unitaVendute;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
