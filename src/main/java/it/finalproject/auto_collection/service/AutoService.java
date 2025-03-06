@@ -27,7 +27,6 @@ public class AutoService {
         return autoRepository.findById(id);
     }
 
-
     public List<Auto> getFilteredAutos(Long brandID, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
         if (brandID!= null && nazioneId!= null) {
             return autoRepository.findByBrandIdAndNazioneId(brandID, nazioneId);
