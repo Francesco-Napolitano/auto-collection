@@ -2,8 +2,11 @@ package it.finalproject.auto_collection.service;
 
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.repo.AutoRepository;
+import it.finalproject.auto_collection.specifications.AutoSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +18,7 @@ public class AutoService {
     private AutoRepository autoRepository;
 
     //get per riavere tutte le auto
-    public List<Auto> getAllAuto(){
+    public List<Auto> getAllAuto() {
         return autoRepository.findAll();
     }
 
@@ -24,37 +27,30 @@ public class AutoService {
         return autoRepository.findById(id);
     }
 
-    //trovare un metodo migliore per filtrare
-    public List<Auto> getFilteredAutos(Long brandID, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
-       if (brandID != null) {
-            return autoRepository.findByBrandId(brandID);
-        } else if(nazioneId != null) {
-            return autoRepository.findByNazioneId(nazioneId);
-        } else if (alimentazione != null) {
-            return autoRepository.findByAlimentazione(alimentazione);
-        } else if (modello != null) {
-            return autoRepository.findByModello(modello);
-        } else if (anno != null) {
-            return autoRepository.findByAnno(anno);
-        } else if (prezzo != null) {
-            return autoRepository.findByPrezzo(prezzo);
-        } else if (carrozzeria != null) {
-            return autoRepository.findByCarrozzeria(carrozzeria);
-        } else if (unitaVendute != null) {
-            return autoRepository.findByUnitaVendute(unitaVendute);
-        } else {
-            return autoRepository.findAll();
-        }
+    //il bello di questo metodo è che risulta tutto DINAMICO e viene tutto aggiunto al path semplicemente grazie al .and() che è appunto in grado di aggiungere la query alla Specification sempre all'interno del path
+    public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
+
+        Specification<Auto> specification = Specification.where(null);
+
+        if(brandId != null ) specification = specification.and(AutoSpecifications.hasBrand(brandId));
+        if(nazioneId != null) specification = specification.and(AutoSpecifications.hasNazione(nazioneId));
+        if(alimentazione != null) specification = specification.and(AutoSpecifications.hasAlimentazione(alimentazione));
+        if(modello != null) specification = specification.and(AutoSpecifications.hasModello(modello));
+        if(anno != null) specification = specification.and(AutoSpecifications.hasAnno(anno));
+        if(prezzo != null) specification = specification.and(AutoSpecifications.hasPrezzo(prezzo));
+        if(carrozzeria != null) specification = specification.and(AutoSpecifications.hasCarrozzeria(carrozzeria));
+        if(unitaVendute != null) specification = specification.and(AutoSpecifications.hasUnitaVendute(unitaVendute));
+
+        return autoRepository.findAll(specification);
     }
 
     //Salva per poter salvare un'auto nuova
-    public Auto saveAuto(Auto auto){
+    public Auto saveAuto(Auto auto) {
         return autoRepository.save(auto);
     }
 
-    //trovare un
     //modifica un auto esistente con update
-    public Optional<Auto> updateAuto(Long id, Auto autoUpdated){
+    public Optional<Auto> updateAuto(Long id, Auto autoUpdated) {
         return autoRepository.findById(id).map(auto -> {
             auto.setModello(autoUpdated.getModello());
             auto.setAnno(autoUpdated.getAnno());
@@ -82,7 +78,7 @@ public class AutoService {
 
 
     //Delete per poter eliminare un'auto
-    public void deleteAuto(Long id){
+    public void deleteAuto(Long id) {
         autoRepository.deleteById(id);
     }
 }
