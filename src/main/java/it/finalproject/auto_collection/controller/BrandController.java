@@ -24,7 +24,6 @@ public class BrandController {
     private AutoRepository autoRepository;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
     public List<Brand> getAllBrands(){
         return brandRepository.findAll();
     }
