@@ -7,7 +7,7 @@
       <env name="DB_PASSWORD" value="FS300924EPICODE" />
       <env name="DB_URL" value="jdbc:postgresql://localhost:5432/progetto AUTOMOBILI 2025" />
       <env name="DB_USERNAME" value="capoNapo" />
-      <env name="JWT_EXP" value="10000000" />
+      <env name="JWT_EXP" value="20000000" />
       <env name="JWT_SECRET" value="1d05f8c540fe8f89e3e243c2bef8b2dc3f949df9fa4d1512d7b2febfa713deab" />
       <env name="USER_EMAIL" value="unaltraltr53ma1l@yahoo.com" />
       <env name="USER_PASSWORD" value="s0n0Un@Passw0rd" />
