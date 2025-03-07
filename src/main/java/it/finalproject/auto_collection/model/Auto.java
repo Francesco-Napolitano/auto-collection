@@ -1,5 +1,6 @@
 package it.finalproject.auto_collection.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,10 +42,12 @@ public class Auto {
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
+    @JsonBackReference
     private Brand brand;
 
     @ManyToOne
     @JoinColumn(name = "nazione_id")
+    @JsonBackReference
     private Nazione nazione;
 
 

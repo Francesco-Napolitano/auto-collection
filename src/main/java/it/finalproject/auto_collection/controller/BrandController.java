@@ -5,6 +5,7 @@ import it.finalproject.auto_collection.model.Brand;
 import it.finalproject.auto_collection.repo.AutoRepository;
 import it.finalproject.auto_collection.repo.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,13 @@ public class BrandController {
     private AutoRepository autoRepository;
 
     @GetMapping
+    @PreAuthorize("isAuthenticated()")
     public List<Brand> getAllBrands(){
         return brandRepository.findAll();
     }
 
-    @GetMapping("/${brandId}/auto")
+    @GetMapping("/{brandId}/auto")
+    @PreAuthorize("isAuthenticated()")
     public List<Auto> getAutoByBrand(@PathVariable Long brandId) {
         return autoRepository.findByBrandId(brandId);
     }
