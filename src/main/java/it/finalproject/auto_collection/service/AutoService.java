@@ -24,6 +24,7 @@ public class AutoService {
         return autoRepository.findById(id);
     }
 
+    //trovare un metodo migliore per filtrare
     public List<Auto> getFilteredAutos(Long brandID, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
        if (brandID != null) {
             return autoRepository.findByBrandId(brandID);
@@ -51,6 +52,7 @@ public class AutoService {
         return autoRepository.save(auto);
     }
 
+    //trovare un
     //modifica un auto esistente con update
     public Optional<Auto> updateAuto(Long id, Auto autoUpdated){
         return autoRepository.findById(id).map(auto -> {
@@ -77,6 +79,7 @@ public class AutoService {
             return autoRepository.save(auto);
         });
     }
+
 
     //Delete per poter eliminare un'auto
     public void deleteAuto(Long id){
