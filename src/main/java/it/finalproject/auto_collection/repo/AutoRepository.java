@@ -12,7 +12,6 @@ import java.util.List;
 public interface AutoRepository extends JpaRepository<Auto, Long> {
     List<Auto> findByBrandId(Long brandId); // Metodo per ottenere automobili per marca>
     List<Auto> findByNazioneId(Long nazioneId); // Metodo per ottenere automobili per nazione>
-    List<Auto> findByBrandIdAndNazioneId(Long brandId, Long nazioneId); // Metodo per ottenere automobili per marca e nazione>
     List<Auto> findByAlimentazione(String alimentazione);
     List<Auto> findByModello(String modello);
     List<Auto> findByAnno(Integer anno);

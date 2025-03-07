@@ -4,9 +4,6 @@ import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.repo.AutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.imageio.metadata.IIOInvalidTreeException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +25,7 @@ public class AutoService {
     }
 
     public List<Auto> getFilteredAutos(Long brandID, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
-        if (brandID!= null && nazioneId!= null) {
-            return autoRepository.findByBrandIdAndNazioneId(brandID, nazioneId);
-        } else if (brandID != null) {
+       if (brandID != null) {
             return autoRepository.findByBrandId(brandID);
         } else if(nazioneId != null) {
             return autoRepository.findByNazioneId(nazioneId);
@@ -65,6 +60,20 @@ public class AutoService {
             auto.setCarrozzeria(autoUpdated.getCarrozzeria());
             auto.setUnitaVendute(autoUpdated.getUnitaVendute());
             auto.setAlimentazione(autoUpdated.getAlimentazione());
+            auto.setBrand(autoUpdated.getBrand());
+            auto.setCilindrata(autoUpdated.getCilindrata());
+            auto.setCoppia(autoUpdated.getCoppia());
+            auto.setDescrizione(autoUpdated.getDescrizione());
+            auto.setPotenza(autoUpdated.getPotenza());
+            auto.setPeso(autoUpdated.getPeso());
+            auto.setHeight(autoUpdated.getHeight());
+            auto.setLength(autoUpdated.getLength());
+            auto.setMotore(autoUpdated.getMotore());
+            auto.setPosizioneMotore(autoUpdated.getPosizioneMotore());
+            auto.setStrutturaMotore(autoUpdated.getStrutturaMotore());
+            auto.setTrazione(autoUpdated.getTrazione());
+            auto.setVelocitaMax(autoUpdated.getVelocitaMax());
+            auto.setWidth(autoUpdated.getWidth());
             return autoRepository.save(auto);
         });
     }

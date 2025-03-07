@@ -27,7 +27,7 @@ public class BrandController {
         return brandRepository.findAll();
     }
 
-    @GetMapping("/${brandId}/auto")
+    @GetMapping("/{brandId}/auto")
     public List<Auto> getAutoByBrand(@PathVariable Long brandId) {
         return autoRepository.findByBrandId(brandId);
     }
