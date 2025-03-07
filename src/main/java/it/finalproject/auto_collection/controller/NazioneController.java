@@ -24,7 +24,6 @@ public class NazioneController {
     private AutoRepository autoRepository;
 
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
     public List<Nazione> getAllNations(){
         return nazioneRepository.findAll();
     }
