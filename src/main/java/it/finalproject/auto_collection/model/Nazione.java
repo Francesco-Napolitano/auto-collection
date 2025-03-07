@@ -1,5 +1,6 @@
 package it.finalproject.auto_collection.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Nazione {
     private String imageNation;
 
     @OneToMany(mappedBy = "nazione", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Auto> automobili;
 
 

@@ -27,7 +27,7 @@ public class NazioneController {
         return nazioneRepository.findAll();
     }
 
-    @GetMapping("/${nazione_id}/automobili")
+    @GetMapping("/{nazioneId}/automobili")
     public List<Auto> getAutoByNation(@PathVariable Long nazioneId){
         return autoRepository.findByNazioneId(nazioneId);
     }
