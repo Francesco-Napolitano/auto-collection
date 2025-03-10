@@ -19,6 +19,7 @@ target/
 *.iml
 *.ipr
 .env
+it/finalproject/auto_collection/auth/
 
 ### NetBeans ###
 /nbproject/private/

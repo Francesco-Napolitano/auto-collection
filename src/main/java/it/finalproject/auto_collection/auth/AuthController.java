@@ -32,7 +32,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         if (loginRequest.getUsername().contains("@")) {
             return ResponseEntity.badRequest().body("Usa OAuth2 per accedere con un provider esterno.");
-        } //per evitare che l'utente possa usare la username e la password per fare login con OAuth2
+        } //per evitare che l'utente possa usare la username e la password del login normale per fare login con OAuth2
 
         String token = appUserService.authenticateUser(
                 loginRequest.getUsername(),
