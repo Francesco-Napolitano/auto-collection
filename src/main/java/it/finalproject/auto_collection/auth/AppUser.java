@@ -40,6 +40,9 @@ public class AppUser implements UserDetails {
     private  boolean credentialsNonExpired=true;
     private  boolean enabled=true;
 
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider; // Enum per OAuth2 (GOOGLE, GITHUB, LOCAL, ecc.)
+
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
 

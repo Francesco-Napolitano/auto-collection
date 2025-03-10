@@ -52,9 +52,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         } else {
 
-                request.setAttribute("javax.servlet.error.exception", new JwtTokenMissingException("JWT Token is missing"));
-                request.getRequestDispatcher("/error").forward(request, response);
-                return;
+            request.setAttribute("javax.servlet.error.exception", new JwtTokenMissingException("JWT Token is missing"));
+            request.getRequestDispatcher("/error").forward(request, response);
+            return;
         }
 
         // Valida il token e configura l'autenticazione nel contesto di sicurezza
@@ -85,8 +85,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/error",
-            "/sw.js"
+            "/sw.js",
+            "/auto",
+            "/auto/filtri",
+            "/brand",
+            "/nazioni"
     );
 
 
 }
+
