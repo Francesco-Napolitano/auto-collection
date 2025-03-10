@@ -32,7 +32,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     newUser.setEmail(email);
                     newUser.setPassword("");
                     newUser.setProvider(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase()));
-                    newUser.setRoles(Collections.singleton(Role.ROLE_USER)); // Ruolo di default
+                    newUser.setRoles(Collections.singleton(Role.ROLE_USER));
                     return userRepository.save(newUser);
                 });
 

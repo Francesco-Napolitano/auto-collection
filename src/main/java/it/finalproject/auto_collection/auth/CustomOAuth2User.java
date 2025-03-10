@@ -1,19 +1,15 @@
 package it.finalproject.auto_collection.auth;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Map;
-
+@AllArgsConstructor
 public class CustomOAuth2User implements OAuth2User {
     private final AppUser user;
     private final Map<String, Object> attributes;
-
-    public CustomOAuth2User(AppUser user, Map<String, Object> attributes) {
-        this.user = user;
-        this.attributes = attributes;
-    }
 
     @Override
     public Map<String, Object> getAttributes() {
