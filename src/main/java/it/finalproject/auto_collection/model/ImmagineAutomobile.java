@@ -20,6 +20,4 @@ public class ImmagineAutomobile {
     @ManyToOne
     @JoinColumn(name = "auto_id")
     private Auto auto;
-
-
 }
