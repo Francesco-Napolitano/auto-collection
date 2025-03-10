@@ -31,7 +31,6 @@ public class AutoController {
     }
 
     @GetMapping("/filtri")
-
     public List<Auto> getAutosFiltered(@RequestParam(required = false) Long brandID, @RequestParam (required = false) Long nazioneId,@RequestParam (required = false) String alimentazione,@RequestParam (required = false) String modello,@RequestParam (required = false) Integer anno,@RequestParam (required = false) BigDecimal prezzo,@RequestParam (required = false) String carrozzeria,@RequestParam (required = false) String unitaVendute) {
         return autoService.getFilteredAutos(brandID, nazioneId, alimentazione, modello, anno, prezzo, carrozzeria, unitaVendute);
     }
