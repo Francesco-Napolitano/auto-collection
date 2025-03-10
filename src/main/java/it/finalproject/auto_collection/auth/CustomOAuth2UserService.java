@@ -30,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     AppUser newUser = new AppUser();
                     newUser.setUsername(name);
                     newUser.setEmail(email);
-                    newUser.setPassword(""); // Nessuna password per OAuth2
+                    newUser.setPassword("");
                     newUser.setProvider(AuthProvider.valueOf(userRequest.getClientRegistration().getRegistrationId().toUpperCase()));
                     newUser.setRoles(Collections.singleton(Role.ROLE_USER)); // Ruolo di default
                     return userRepository.save(newUser);
