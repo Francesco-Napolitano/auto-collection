@@ -29,6 +29,9 @@ public class SecurityConfig {
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
 
@@ -38,13 +41,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disabilita CSRF
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auto/{id}", "/nazioni/{nazioneId}/**", "/brand/{brandId}/**").authenticated() // Queste rotte richiedono autenticazione
                         .anyRequest().permitAll() // Tutto il resto è accessibile senza login
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .oauth2Login(Customizer.withDefaults()) // Abilita OAuth2 login
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+                        .defaultSuccessUrl("/user", true) // Dopo il login reindirizza qui
+                ).logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
                 .formLogin(Customizer.withDefaults());  // Abilita form login classico
 
         // Aggiungi il filtro JWT
