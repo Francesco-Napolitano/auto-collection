@@ -28,6 +28,8 @@ public class NazioneController {
         return nazioneRepository.findAll();
     }
 
+
+    // serve a ritornare tutte le automobili che appartengono a quella determinata nazione
     @GetMapping("/{nazioneId}/automobili")
     @PreAuthorize("isAuthenticated()")
     public List<Auto> getAutoByNation(@PathVariable Long nazioneId){
