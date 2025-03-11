@@ -16,5 +16,4 @@ public class ImmagineAutomobileService {
     public List<ImmagineAutomobile> getImmaginiByAutoId(Long autoId){
         return repository.findByAutoId(autoId);
     }
-
 }
