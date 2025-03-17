@@ -1,6 +1,8 @@
 package it.finalproject.auto_collection.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "automobili")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Auto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +43,16 @@ public class Auto {
     private String carrozzeria;
     private String unitaVendute;
 
+
     @ManyToOne
     @JoinColumn(name = "brand_id")
     @JsonBackReference
     private Brand brand;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER) //questo tipo di Fetch permette di caricare prima la nazione ed è utile per l'inserimento
+    // dei dati all'interno dei filtri
     @JoinColumn(name = "nazione_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Nazione nazione;
 
 
