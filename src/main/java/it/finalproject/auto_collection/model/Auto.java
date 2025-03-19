@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -54,6 +55,10 @@ public class Auto {
     @JoinColumn(name = "nazione_id")
     @JsonManagedReference
     private Nazione nazione;
+
+    @OneToMany(mappedBy = "auto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference  // Permette di vedere la lista di immagini nel JSON
+    private List<ImmagineAutomobile> immagini;
 
 
 

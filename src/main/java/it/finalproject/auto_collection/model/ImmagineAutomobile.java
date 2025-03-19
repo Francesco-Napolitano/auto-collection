@@ -1,5 +1,6 @@
 package it.finalproject.auto_collection.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class ImmagineAutomobile {
 
     @ManyToOne
     @JoinColumn(name = "auto_id")
+    @JsonBackReference
     private Auto auto;
 }

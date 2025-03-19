@@ -90,7 +90,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             "/auto",
             "/auto/filtri",
             "/brand",
-            "/nazioni"
+            "/nazioni",
+            "/immagini/**"
     );
 }
 
