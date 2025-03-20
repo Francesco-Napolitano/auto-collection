@@ -47,7 +47,7 @@ public class Auto {
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Brand brand;
 
     @ManyToOne (fetch = FetchType.EAGER) //questo tipo di Fetch permette di caricare prima la nazione ed è utile per l'inserimento

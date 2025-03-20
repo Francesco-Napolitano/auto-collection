@@ -1,5 +1,6 @@
 package it.finalproject.auto_collection.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class Brand {
     private String logoUrl;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Auto> automobili;
 
 
