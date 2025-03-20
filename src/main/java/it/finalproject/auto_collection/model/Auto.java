@@ -49,6 +49,7 @@ public class Auto {
     @JoinColumn(name = "brand_id")
     @JsonManagedReference
     private Brand brand;
+    // ho aggiunto il @JsonManagedReference perché mi serve l'id del brand quando utilizzo la sezione filtri
 
     @ManyToOne (fetch = FetchType.EAGER) //questo tipo di Fetch permette di caricare prima la nazione ed è utile per l'inserimento
     // dei dati all'interno dei filtri
