@@ -28,18 +28,19 @@ public class AutoService {
     }
 
     //il bello di questo metodo è che risulta tutto DINAMICO e viene tutto aggiunto al path semplicemente grazie al .and() che è appunto in grado di aggiungere la query alla Specification sempre all'interno del path
-    public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String alimentazione, String modello, Integer anno, BigDecimal prezzo, String carrozzeria, String unitaVendute) {
+    public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String alimentazione, String modello, Integer annoMin, BigDecimal prezzoMin, String carrozzeria, String unitaVendute) {
 
         Specification<Auto> specification = Specification.where(null);
 
-        if(brandId != null ) specification = specification.and(AutoSpecifications.hasBrand(brandId));
-        if(nazioneId != null) specification = specification.and(AutoSpecifications.hasNazione(nazioneId));
-        if(alimentazione != null) specification = specification.and(AutoSpecifications.hasAlimentazione(alimentazione));
-        if(modello != null) specification = specification.and(AutoSpecifications.hasModello(modello));
-        if(anno != null) specification = specification.and(AutoSpecifications.hasAnno(anno));
-        if(prezzo != null) specification = specification.and(AutoSpecifications.hasPrezzo(prezzo));
-        if(carrozzeria != null) specification = specification.and(AutoSpecifications.hasCarrozzeria(carrozzeria));
-        if(unitaVendute != null) specification = specification.and(AutoSpecifications.hasUnitaVendute(unitaVendute));
+        if (brandId != null) specification = specification.and(AutoSpecifications.hasBrand(brandId));
+        if (nazioneId != null) specification = specification.and(AutoSpecifications.hasNazione(nazioneId));
+        if (alimentazione != null)
+            specification = specification.and(AutoSpecifications.hasAlimentazione(alimentazione));
+        if (modello != null) specification = specification.and(AutoSpecifications.hasModello(modello));
+        if (annoMin != null) specification = specification.and(AutoSpecifications.hasAnno(annoMin));
+        if (prezzoMin != null) specification = specification.and(AutoSpecifications.hasPrezzo(prezzoMin));
+        if (carrozzeria != null) specification = specification.and(AutoSpecifications.hasCarrozzeria(carrozzeria));
+        if (unitaVendute != null) specification = specification.and(AutoSpecifications.hasUnitaVendute(unitaVendute));
 
         return autoRepository.findAll(specification);
     }

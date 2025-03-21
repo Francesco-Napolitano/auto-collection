@@ -20,15 +20,15 @@ public class AutoSpecifications {
     }
 
     public static Specification<Auto> hasModello(String modello){
-        return (root,query,criteriaBuilder)-> modello==null ? null : criteriaBuilder.equal(root.get("modello"),modello);
+        return (root,query,criteriaBuilder)-> modello==null ? null : criteriaBuilder.like(root.get("modello"),"%" + modello + "%");
     }
 
-    public static Specification<Auto> hasAnno(Integer anno){
-        return (root,query,criteriaBuilder)-> anno==null ? null : criteriaBuilder.equal(root.get("anno"),anno);
+    public static Specification<Auto> hasAnno(Integer annoMin){
+        return (root,query,criteriaBuilder)-> annoMin==null ? null : criteriaBuilder.greaterThanOrEqualTo(root.get("anno"),annoMin);
     }
 
-    public static Specification<Auto> hasPrezzo(BigDecimal prezzo){
-        return (root,query,criteriaBuilder)-> prezzo==null ? null : criteriaBuilder.equal(root.get("prezzo"),prezzo);
+    public static Specification<Auto> hasPrezzo(BigDecimal prezzoMin){
+        return (root,query,criteriaBuilder)-> prezzoMin==null ? null : criteriaBuilder.greaterThanOrEqualTo(root.get("prezzo"),prezzoMin);
     }
 
     public static Specification<Auto> hasCarrozzeria(String carrozzeria){
