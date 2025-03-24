@@ -1,18 +1,23 @@
 package it.finalproject.auto_collection.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import it.finalproject.auto_collection.DTO.AutoDTO;
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auto")
-@CrossOrigin (origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AutoController {
 
     @Autowired
@@ -26,9 +31,7 @@ public class AutoController {
     @GetMapping("/{id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Auto> getAutoById(@PathVariable Long id) {
-        return autoService.getAutoById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return autoService.getAutoById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // metodo GET per ottenere automobili filtrate di vario tipo
@@ -43,11 +46,18 @@ public class AutoController {
         return autoService.saveAuto(auto);
     }
 
-    //metodo UPDATE per modificare un auto esistente
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Auto> updatedAuto(@PathVariable Long id, @RequestBody Auto autoUpdated) {
-        return autoService.updateAuto(id, autoUpdated).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<?> updatedAuto(@PathVariable Long id, @RequestBody AutoDTO autoDTO) {
+        System.out.println("JSON ricevuto: " + autoDTO);
+
+        Auto updated = autoService.updateAuto(id, autoDTO);
+
+        if (updated == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Errore: Auto con ID " + id + " non trovata");
+        }
+
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
