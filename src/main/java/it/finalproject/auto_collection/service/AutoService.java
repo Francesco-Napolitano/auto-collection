@@ -1,8 +1,14 @@
 package it.finalproject.auto_collection.service;
 
+import it.finalproject.auto_collection.DTO.AutoDTO;
 import it.finalproject.auto_collection.model.Auto;
+import it.finalproject.auto_collection.model.Brand;
+import it.finalproject.auto_collection.model.Nazione;
 import it.finalproject.auto_collection.repo.AutoRepository;
+import it.finalproject.auto_collection.repo.BrandRepository;
+import it.finalproject.auto_collection.repo.NazioneRepository;
 import it.finalproject.auto_collection.specifications.AutoSpecifications;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -16,6 +22,12 @@ public class AutoService {
 
     @Autowired
     private AutoRepository autoRepository;
+
+    @Autowired
+    private NazioneRepository nazioneRepository;
+
+    @Autowired
+    private BrandRepository brandRepository;
 
     //get per riavere tutte le auto
     public List<Auto> getAllAuto() {
@@ -51,30 +63,42 @@ public class AutoService {
     }
 
     //modifica un auto esistente con update
-    public Optional<Auto> updateAuto(Long id, Auto autoUpdated) {
+    public Auto updateAuto(Long id, AutoDTO autoDTO) {
         return autoRepository.findById(id).map(auto -> {
-            auto.setModello(autoUpdated.getModello());
-            auto.setAnno(autoUpdated.getAnno());
-            auto.setPrezzo(autoUpdated.getPrezzo());
-            auto.setCarrozzeria(autoUpdated.getCarrozzeria());
-            auto.setUnitaVendute(autoUpdated.getUnitaVendute());
-            auto.setAlimentazione(autoUpdated.getAlimentazione());
-            auto.setBrand(autoUpdated.getBrand());
-            auto.setCilindrata(autoUpdated.getCilindrata());
-            auto.setCoppia(autoUpdated.getCoppia());
-            auto.setDescrizione(autoUpdated.getDescrizione());
-            auto.setPotenza(autoUpdated.getPotenza());
-            auto.setPeso(autoUpdated.getPeso());
-            auto.setHeight(autoUpdated.getHeight());
-            auto.setLength(autoUpdated.getLength());
-            auto.setMotore(autoUpdated.getMotore());
-            auto.setPosizioneMotore(autoUpdated.getPosizioneMotore());
-            auto.setStrutturaMotore(autoUpdated.getStrutturaMotore());
-            auto.setTrazione(autoUpdated.getTrazione());
-            auto.setVelocitaMax(autoUpdated.getVelocitaMax());
-            auto.setWidth(autoUpdated.getWidth());
+            auto.setModello(autoDTO.getModello());
+            auto.setAnno(autoDTO.getAnno());
+            auto.setPrezzo(autoDTO.getPrezzo());
+            auto.setCarrozzeria(autoDTO.getCarrozzeria());
+            auto.setUnitaVendute(autoDTO.getUnitaVendute());
+            auto.setAlimentazione(autoDTO.getAlimentazione());
+            auto.setCilindrata(autoDTO.getCilindrata());
+            auto.setCoppia(autoDTO.getCoppia());
+            auto.setDescrizione(autoDTO.getDescrizione());
+            auto.setPotenza(autoDTO.getPotenza());
+            auto.setPeso(autoDTO.getPeso());
+            auto.setHeight(autoDTO.getHeight());
+            auto.setLength(autoDTO.getLength());
+            auto.setMotore(autoDTO.getMotore());
+            auto.setPosizioneMotore(autoDTO.getPosizioneMotore());
+            auto.setStrutturaMotore(autoDTO.getStrutturaMotore());
+            auto.setTrazione(autoDTO.getTrazione());
+            auto.setVelocitaMax(autoDTO.getVelocitaMax());
+            auto.setWidth(autoDTO.getWidth());
+
+            // Assegna il Brand se esiste, altrimenti non fa nulla. Il motivo per cui non viene lanciata un'eccezione nel caso in cui non trovi il Brand
+            // è che potrebbe essere che il Brand non esista nel DB, ad esempio se il programma viene eseguito per la prima volta e non ci sono dati nel DB
+            if (autoDTO.getBrandId() != null) {
+                Brand brand = brandRepository.findById(autoDTO.getBrandId()).orElse(null);
+                auto.setBrand(brand);
+            }
+            if (autoDTO.getNazioneId() != null) {
+                Nazione nazione = nazioneRepository.findById(autoDTO.getNazioneId()).orElse(null);
+                auto.setNazione(nazione);
+            }
+
             return autoRepository.save(auto);
-        });
+        }).orElse(null);
+
     }
 
 
