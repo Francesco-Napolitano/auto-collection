@@ -85,17 +85,18 @@ public class AutoService {
             auto.setVelocitaMax(autoDTO.getVelocitaMax());
             auto.setWidth(autoDTO.getWidth());
 
-            // Assegna il Brand se esiste, altrimenti non fa nulla. Il motivo per cui non viene lanciata un'eccezione nel caso in cui non trovi il Brand
-            // è che potrebbe essere che il Brand non esista nel DB, ad esempio se il programma viene eseguito per la prima volta e non ci sono dati nel DB
+            // Assegna il Brand (tramite l'id) se esiste, altrimenti non fa nulla
             if (autoDTO.getBrandId() != null) {
                 Brand brand = brandRepository.findById(autoDTO.getBrandId()).orElse(null);
                 auto.setBrand(brand);
             }
+            // Assegna la Nazione (tramite l'id) se esiste, altrimenti non fa nulla
             if (autoDTO.getNazioneId() != null) {
                 Nazione nazione = nazioneRepository.findById(autoDTO.getNazioneId()).orElse(null);
                 auto.setNazione(nazione);
             }
 
+            // Dopo tutte le modifiche  l'auto viene salvata
             return autoRepository.save(auto);
         }).orElse(null);
 
