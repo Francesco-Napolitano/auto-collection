@@ -1,9 +1,6 @@
 package it.finalproject.auto_collection.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.finalproject.auto_collection.DTO.AutoDTO;
-import it.finalproject.auto_collection.DTO.AutoMapper;
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auto")
@@ -23,9 +19,6 @@ public class AutoController {
 
     @Autowired
     private AutoService autoService;
-
-    @Autowired
-    private AutoMapper autoMapper;
 
     @GetMapping
     public List<Auto> getALlAutos() {
@@ -46,9 +39,9 @@ public class AutoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AutoDTO> createAuto(@RequestBody AutoDTO autoDTO) {
+    public ResponseEntity<Auto> createAuto(@RequestBody AutoDTO autoDTO) {
         Auto savedAuto = autoService.saveAuto(autoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(autoMapper.toDTO(savedAuto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAuto);
     }
 
     @PutMapping("/{id}")

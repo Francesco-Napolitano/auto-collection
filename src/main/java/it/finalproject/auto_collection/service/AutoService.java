@@ -1,7 +1,6 @@
 package it.finalproject.auto_collection.service;
 
 import it.finalproject.auto_collection.DTO.AutoDTO;
-import it.finalproject.auto_collection.DTO.AutoMapper;
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.model.Brand;
 import it.finalproject.auto_collection.model.ImmagineAutomobile;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AutoService {
@@ -33,9 +33,6 @@ public class AutoService {
 
     @Autowired
     private ImmagineAutomobileRepository immagineAutomobileRepository;
-
-    @Autowired
-    private AutoMapper autoMapper;
 
 
     //get per riavere tutte le auto
@@ -68,26 +65,49 @@ public class AutoService {
 
     //Salva per poter salvare un'auto nuova
     public Auto saveAuto(AutoDTO autoDTO) {
-        Auto auto = autoMapper.toEntity(autoDTO);
+        Auto auto = new Auto();
+        auto.setNome(autoDTO.getNome());
+        auto.setModello(autoDTO.getModello());
+        auto.setAnno(autoDTO.getAnno());
+        auto.setMotore(autoDTO.getMotore());
+        auto.setPotenza(autoDTO.getPotenza());
+        auto.setCoppia(autoDTO.getCoppia());
+        auto.setVelocitaMax(autoDTO.getVelocitaMax());
+        auto.setPrezzo(autoDTO.getPrezzo());
+        auto.setDescrizione(autoDTO.getDescrizione());
+        auto.setAlimentazione(autoDTO.getAlimentazione());
+        auto.setLength(autoDTO.getLength());
+        auto.setWidth(autoDTO.getWidth());
+        auto.setHeight(autoDTO.getHeight());
+        auto.setPeso(autoDTO.getPeso());
+        auto.setCilindrata(autoDTO.getCilindrata());
+        auto.setStrutturaMotore(autoDTO.getStrutturaMotore());
+        auto.setTrazione(autoDTO.getTrazione());
+        auto.setPosizioneMotore(autoDTO.getPosizioneMotore());
+        auto.setCarrozzeria(autoDTO.getCarrozzeria());
+        auto.setUnitaVendute(autoDTO.getUnitaVendute());
 
-        // Recupera il brand dal repository se esiste
-        if (autoDTO.getBrandId()!= null) {
-            auto.setBrand(brandRepository.findById(autoDTO.getBrandId()).orElse(null));
-        }
+        // Associazione del Brand
+        Brand brand = brandRepository.findById(autoDTO.getBrandId())
+                .orElseThrow(() -> new RuntimeException("Brand non trovato"));
+        auto.setBrand(brand);
 
-        // Recupera la nazione dal repository se esiste
-        if (autoDTO.getNazioneId() != null) {
-            auto.setNazione(nazioneRepository.findById(autoDTO.getNazioneId()).orElse(null));
-        }
+        // Associazione della Nazione
+        Nazione nazione = nazioneRepository.findById(autoDTO.getNazioneId())
+                .orElseThrow(() -> new RuntimeException("Nazione non trovata"));
+        auto.setNazione(nazione);
 
-        // Recupera la lista delle immagini se esistono
-        if (autoDTO.getImmaginiIds() != null && !autoDTO.getImmaginiIds().isEmpty()) {
-            List<ImmagineAutomobile> immagini = immagineAutomobileRepository.findAllById(autoDTO.getImmaginiIds());
+        // Associazione delle immagini
+        if (autoDTO.getImmaginiIds() != null) {
+            List<ImmagineAutomobile> immagini = autoDTO.getImmaginiIds().stream()
+                    .map(id -> immagineAutomobileRepository.findById(id)
+                            .orElseThrow(() -> new RuntimeException("Immagine non trovata")))
+                    .collect(Collectors.toList());
             auto.setImmagini(immagini);
         }
 
-        // Salva e ritorna l'auto
         return autoRepository.save(auto);
+
     }
 
     //modifica un auto esistente con update
