@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 
 public class AutoDTO {
+    private Long id;
     private String nome;
     private String modello;
     private Integer anno;

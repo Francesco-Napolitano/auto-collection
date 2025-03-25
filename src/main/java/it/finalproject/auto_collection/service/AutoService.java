@@ -1,14 +1,16 @@
 package it.finalproject.auto_collection.service;
 
 import it.finalproject.auto_collection.DTO.AutoDTO;
+import it.finalproject.auto_collection.DTO.AutoMapper;
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.model.Brand;
+import it.finalproject.auto_collection.model.ImmagineAutomobile;
 import it.finalproject.auto_collection.model.Nazione;
 import it.finalproject.auto_collection.repo.AutoRepository;
 import it.finalproject.auto_collection.repo.BrandRepository;
+import it.finalproject.auto_collection.repo.ImmagineAutomobileRepository;
 import it.finalproject.auto_collection.repo.NazioneRepository;
 import it.finalproject.auto_collection.specifications.AutoSpecifications;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,13 @@ public class AutoService {
 
     @Autowired
     private BrandRepository brandRepository;
+
+    @Autowired
+    private ImmagineAutomobileRepository immagineAutomobileRepository;
+
+    @Autowired
+    private AutoMapper autoMapper;
+
 
     //get per riavere tutte le auto
     public List<Auto> getAllAuto() {
@@ -58,7 +67,26 @@ public class AutoService {
     }
 
     //Salva per poter salvare un'auto nuova
-    public Auto saveAuto(Auto auto) {
+    public Auto saveAuto(AutoDTO autoDTO) {
+        Auto auto = autoMapper.toEntity(autoDTO);
+
+        // Recupera il brand dal repository se esiste
+        if (autoDTO.getBrandId()!= null) {
+            auto.setBrand(brandRepository.findById(autoDTO.getBrandId()).orElse(null));
+        }
+
+        // Recupera la nazione dal repository se esiste
+        if (autoDTO.getNazioneId() != null) {
+            auto.setNazione(nazioneRepository.findById(autoDTO.getNazioneId()).orElse(null));
+        }
+
+        // Recupera la lista delle immagini se esistono
+        if (autoDTO.getImmaginiIds() != null && !autoDTO.getImmaginiIds().isEmpty()) {
+            List<ImmagineAutomobile> immagini = immagineAutomobileRepository.findAllById(autoDTO.getImmaginiIds());
+            auto.setImmagini(immagini);
+        }
+
+        // Salva e ritorna l'auto
         return autoRepository.save(auto);
     }
 

@@ -3,6 +3,7 @@ package it.finalproject.auto_collection.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.finalproject.auto_collection.DTO.AutoDTO;
+import it.finalproject.auto_collection.DTO.AutoMapper;
 import it.finalproject.auto_collection.model.Auto;
 import it.finalproject.auto_collection.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class AutoController {
     @Autowired
     private AutoService autoService;
 
+    @Autowired
+    private AutoMapper autoMapper;
+
     @GetMapping
     public List<Auto> getALlAutos() {
         return autoService.getAllAuto();
@@ -42,8 +46,9 @@ public class AutoController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Auto saveAuto(@RequestBody Auto auto) {
-        return autoService.saveAuto(auto);
+    public ResponseEntity<AutoDTO> createAuto(@RequestBody AutoDTO autoDTO) {
+        Auto savedAuto = autoService.saveAuto(autoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(autoMapper.toDTO(savedAuto));
     }
 
     @PutMapping("/{id}")
