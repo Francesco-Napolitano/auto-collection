@@ -10,13 +10,14 @@
       <env name="GITHUB_ID" value="Ov23liR5niGzyilOIBSt" />
       <env name="GITHUB_SECRET" value="2bde538541985f1f5ba284056bb4df5c1e514339" />
       <env name="GOOGLE_ID" value="1089231597808-kv4qa7ahpb65eg68d2v20b6v02h3fq5k.apps.googleusercontent.com" />
+      <env name="GOOGLE_REDIRECT" value="http://localhost:8080/login/oauth2/code/google" />
       <env name="GOOGLE_SECRET" value="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" />
       <env name="JWT_EXP" value="20000000" />
       <env name="JWT_SECRET" value="1d05f8c540fe8f89e3e243c2bef8b2dc3f949df9fa4d1512d7b2febfa713deab" />
       <env name="USER_EMAIL" value="unaltraltr53ma1l@yahoo.com" />
       <env name="USER_PASSWORD" value="s0n0Un@Passw0rd" />
       <env name="USER_USERNAME" value="userQualunque" />
-      <env name="GOOGLE_REDIRECT" value="http://localhost:8080/login/oauth2/code/google" />
+      <env name="GITHUB_REDIRECT" value="http://localhost:8080/login/oauth2/code/github" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="it.finalproject.auto_collection.AutoCollectionApplication" />
     <module name="auto-collection" />
