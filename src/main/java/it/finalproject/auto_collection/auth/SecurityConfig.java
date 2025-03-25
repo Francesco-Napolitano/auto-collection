@@ -34,6 +34,9 @@ public class SecurityConfig {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,7 +51,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-                        .defaultSuccessUrl("/user", true) // Dopo il login reindirizza qui
+                        .successHandler(oAuth2LoginSuccessHandler) // Aggiunto per generare JWT dopo login OAuth2
                 ).logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
