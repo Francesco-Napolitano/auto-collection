@@ -67,4 +67,23 @@ public class AppUserService {
 
         return appUser;
     }
+
+    //questo metodo serve per ottenere o creare un utente OAuth
+    public AppUser findOrCreateOAuthUser(String email, String name, AuthProvider provider) {
+        Optional<AppUser> existingUser = appUserRepository.findByEmail(email);
+
+        if (existingUser.isPresent()) {
+            return existingUser.get(); // Se l'utente è già presente nel database viene restituito
+        }
+
+        // Se non esiste, lo creiamo
+        AppUser newUser = new AppUser();
+        newUser.setUsername(name);
+        newUser.setEmail(email);
+        newUser.setProvider(provider);
+        newUser.setRoles(Set.of(Role.ROLE_USER)); // L'utente avrà solo permessi da USER
+
+        return appUserRepository.save(newUser);
+    }
+
 }
