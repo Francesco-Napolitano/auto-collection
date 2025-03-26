@@ -32,12 +32,20 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("oAuth2User attributes: " + oAuth2User.getAttributes());
+
 
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
-
+        System.out.println("Email: " + email + ", Name: " + name);
         // Determina il provider (Google o GitHub)
-        AuthProvider provider = email.endsWith("@gmail.com") ? AuthProvider.GOOGLE : AuthProvider.GITHUB;
+        String registrationId = (String) request.getSession().getAttribute("OAuth2Provider");
+        System.out.println("Registration ID: " + registrationId);
+
+        AuthProvider provider = "github".equalsIgnoreCase(registrationId) ? AuthProvider.GITHUB : AuthProvider.GOOGLE;
+        System.out.println("AuthProvider: " + provider);
+
+
 
         // Verifica se l'utente esiste già nel database
         AppUser user = appUserRepository.findByEmail(email)
@@ -73,5 +81,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         // Reindirizza alla homepage del frontend con il token
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+
     }
 }
