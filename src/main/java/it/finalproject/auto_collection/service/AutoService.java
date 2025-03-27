@@ -45,7 +45,8 @@ public class AutoService {
         return autoRepository.findById(id);
     }
 
-    //il bello di questo metodo è che risulta tutto DINAMICO e viene tutto aggiunto al path semplicemente grazie al .and() che è appunto in grado di aggiungere la query alla Specification sempre all'interno del path
+    //get per ottenere le auto filtrate,in questo metodo è che risulta tutto DINAMICO e viene tutto aggiunto al path semplicemente grazie al .and() che è
+    // in grado di aggiungere la query a specification sempre all'interno del path
     public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String alimentazione, String modello, Integer annoMin, BigDecimal prezzoMin, String carrozzeria, String unitaVendute) {
 
         Specification<Auto> specification = Specification.where(null);

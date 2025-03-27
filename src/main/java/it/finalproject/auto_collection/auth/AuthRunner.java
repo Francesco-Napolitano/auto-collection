@@ -24,13 +24,13 @@ public class AuthRunner implements ApplicationRunner {
 //        // Creazione Admin
 //        Optional<AppUser> adminUser = appUserService.findByUsername("${ADMIN_USERNAME}");
 //        if (adminUser.isEmpty()) {
-//            appUserService.registerUser("${ADMIN_USERNAME}", "${ADMIN_PASSWORD}", Set.of(Role.ROLE_ADMIN), "${ADMIN_EMAIL}");
+//            appUserService.registerUser("${}", "${}", Set.of(Role.ROLE_ADMIN), "${}");
 //        }
 //
 //        // Creazione User
 //        Optional<AppUser> normalUser = appUserService.findByUsername("${USER_USERNAME}");
 //        if (normalUser.isEmpty()) {
-//            appUserService.registerUser("${USER_USERNAME}", "${USER_PASSWORD}", Set.of(Role.ROLE_USER), "${USER_EMAIL}");
+//            appUserService.registerUser("${}", "${}", Set.of(Role.ROLE_USER), "${}");
 //        }
 
     }
