@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin (origins = "http://localhost:5173")
+@CrossOrigin (origins = "https://auto-collection-fe.vercel.app/")
 public class ImmagineAutomobileController {
 
     @Autowired

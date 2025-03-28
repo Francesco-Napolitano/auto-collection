@@ -9,7 +9,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://auto-collection-fe.vercel.app/")
 public class AuthController {
 
     private final AppUserService appUserService;

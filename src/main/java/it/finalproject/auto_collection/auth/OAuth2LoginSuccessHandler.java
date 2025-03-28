@@ -75,7 +75,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         String token = jwtTokenUtil.generateToken(userDetails);
 
         // Costruisci l'URL di reindirizzamento con il token
-        String redirectUrl = UriComponentsBuilder.fromUriString("http://localhost:5173/")
+        String redirectUrl = UriComponentsBuilder.fromUriString("https://auto-collection-fe.vercel.app/")
                 .queryParam("token", token)
                 .build().toUriString();
 

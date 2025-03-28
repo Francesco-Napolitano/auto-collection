@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brand")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://auto-collection-fe.vercel.app/")
 
 public class BrandController {
 

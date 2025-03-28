@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auto")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://auto-collection-fe.vercel.app/")
 public class AutoController {
 
     @Autowired
