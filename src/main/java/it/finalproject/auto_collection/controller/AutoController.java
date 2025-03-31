@@ -33,8 +33,13 @@ public class AutoController {
 
     // metodo GET per ottenere automobili filtrate di vario tipo
     @GetMapping("/filtri")
-    public List<Auto> getAutosFiltered(@RequestParam(required = false) Long brandID, @RequestParam(required = false) Long nazioneId, @RequestParam(required = false) String alimentazione, @RequestParam(required = false) String modello, @RequestParam(required = false) Integer annoMin, @RequestParam(required = false) BigDecimal prezzoMin, @RequestParam(required = false) String carrozzeria, @RequestParam(required = false) String unitaVendute) {
-        return autoService.getFilteredAutos(brandID, nazioneId, alimentazione, modello, annoMin, prezzoMin, carrozzeria, unitaVendute);
+    public List<Auto> getAutosFiltered(@RequestParam(required = false) Long brandID,
+                                       @RequestParam(required = false) Long nazioneId,
+                                       @RequestParam(required = false) String modello,
+                                       @RequestParam(required = false) Integer annoMin,
+                                       @RequestParam(required = false) BigDecimal prezzoMin,
+                                       @RequestParam(required = false) BigDecimal prezzoMax) {
+        return autoService.getFilteredAutos(brandID, nazioneId, modello, annoMin, prezzoMin, prezzoMax);
     }
 
     @PostMapping
