@@ -47,13 +47,14 @@ public class AutoService {
 
     //get per ottenere le auto filtrate,in questo metodo è che risulta tutto DINAMICO e viene tutto aggiunto al path semplicemente grazie al .and() che è
     // in grado di aggiungere la query a specification sempre all'interno del path
-    public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String modello, Integer annoMin, BigDecimal prezzoMin, BigDecimal prezzoMax ) {
+    public List<Auto> getFilteredAutos(Long brandId, Long nazioneId, String modello, String nome ,Integer annoMin, BigDecimal prezzoMin, BigDecimal prezzoMax ) {
 
         Specification<Auto> specification = Specification.where(null);
 
         if (brandId != null) specification = specification.and(AutoSpecifications.hasBrand(brandId));
         if (nazioneId != null) specification = specification.and(AutoSpecifications.hasNazione(nazioneId));
         if (modello != null) specification = specification.and(AutoSpecifications.hasModello(modello));
+        if(nome != null) specification = specification.and(AutoSpecifications.hasNome(nome));
         if (annoMin != null) specification = specification.and(AutoSpecifications.hasAnno(annoMin));
         if (prezzoMin != null) specification = specification.and(AutoSpecifications.hasPrezzoMin(prezzoMin));
         if(prezzoMax != null) specification = specification.and(AutoSpecifications.hasPrezzoMax(prezzoMax));

@@ -19,6 +19,10 @@ public class AutoSpecifications {
         return (root,query,criteriaBuilder)-> modello==null ? null : criteriaBuilder.like(root.get("modello"),"%" + modello + "%");
     }
 
+    public static Specification<Auto> hasNome(String nome){
+        return (root,query,criteriaBuilder)-> nome==null ? null : criteriaBuilder.like(root.get("modello"),"%" + nome + "%");
+    }
+
     public static Specification<Auto> hasAnno(Integer annoMin){
         return (root,query,criteriaBuilder)-> annoMin==null ? null : criteriaBuilder.greaterThanOrEqualTo(root.get("anno"),annoMin);
     }

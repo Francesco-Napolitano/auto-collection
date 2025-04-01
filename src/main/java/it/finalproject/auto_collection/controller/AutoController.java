@@ -36,10 +36,11 @@ public class AutoController {
     public List<Auto> getAutosFiltered(@RequestParam(required = false) Long brandID,
                                        @RequestParam(required = false) Long nazioneId,
                                        @RequestParam(required = false) String modello,
+                                       @RequestParam(required = false) String nome,
                                        @RequestParam(required = false) Integer annoMin,
                                        @RequestParam(required = false) BigDecimal prezzoMin,
                                        @RequestParam(required = false) BigDecimal prezzoMax) {
-        return autoService.getFilteredAutos(brandID, nazioneId, modello, annoMin, prezzoMin, prezzoMax);
+        return autoService.getFilteredAutos(brandID, nazioneId, modello, nome, annoMin, prezzoMin, prezzoMax);
     }
 
     @PostMapping
