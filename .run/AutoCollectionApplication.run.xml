@@ -4,8 +4,8 @@
       <env name="ADMIN_EMAIL" value="jer3m1@proton.me" />
       <env name="ADMIN_PASSWORD" value="jer3mYCl@Rks0n2016 " />
       <env name="ADMIN_USERNAME" value="Jeremy Clarkson" />
-      <env name="DB_DEPLOY_PASSWORD" value="F5anLNd8d6Kn03FZIefJpQ1tq6MuCsCL" />
-      <env name="DB_DEPLOY_URL" value="jdbc:postgresql://dpg-cvj5bcpr0fns73ebuem0-a.frankfurt-postgres.render.com/collezioneauto" />
+      <env name="DB_DEPLOY_PASSWORD" value="5cuOLnMOfdJDidBJRmuRzZXbVSFokByD" />
+      <env name="DB_DEPLOY_URL" value="jbdc:postgresql://dpg-d0bnb0pr0fns73dldqp0-a.frankfurt-postgres.render.com/collezioneauto_x4en" />
       <env name="DB_DEPLOY_USERNAME" value="franz" />
       <env name="GITHUB_ID" value="Ov23liR5niGzyilOIBSt" />
       <env name="GITHUB_REDIRECT" value="https://suspicious-mae-autoiconiche-c817b685.koyeb.app/login/oauth2/code/github" />
